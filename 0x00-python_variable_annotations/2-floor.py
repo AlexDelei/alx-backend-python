@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-import math
 """
 type-annotated function
 """
+import math
 
 
 def floor(n: float) -> int:
@@ -11,4 +11,5 @@ def floor(n: float) -> int:
 
     n -- number to round down
     """
+
     return (math.floor(n))
