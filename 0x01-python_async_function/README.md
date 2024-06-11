@@ -51,7 +51,7 @@ def m(x):
 ```
 
 
- An older way of marking a function as a coroutine is to decorate a normal def function with ```@asyncio.coroutine```. The result is a **generator-based coroutine**. This construction has been outdated. These two coroutines are essentially equivalent (both are awaitable), but the first is generator-based, while the second is a native coroutine:
+ An older way of marking a function as a coroutine is to decorate a normal def function with ```@asyncio.coroutine```. The result is a **generator-based coroutine**. This construction has been outdated. These two coroutines are essentially equivalent (both are awaitable), but the first is **generator-based**, while the second is a **native coroutine**:
 
 ```
 import asyncio
