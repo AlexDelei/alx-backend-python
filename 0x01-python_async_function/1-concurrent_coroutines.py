@@ -7,12 +7,12 @@ import asyncio
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def wait_n(n: int, max_delay: int):
+async def wait_n(n: int, max_delay: int) -> List[float]:
     """
     n  -- Number of times to spawn the function
     max_delay  -- Number of maximum delays
     """
-    delayList = []
+    delayList: List[float]
 
     for _ in range(n):
         delayTime = await wait_random(max_delay)
@@ -23,7 +23,7 @@ async def wait_n(n: int, max_delay: int):
         Orders the list of unordered floats
         Using bubble sort algorithm
         """
-        len_ = len(lst)
+        len_: int = len(lst)
 
         for i in range(len_):
             for j in range(0, len_ - i - 1):
