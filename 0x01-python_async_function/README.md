@@ -33,7 +33,7 @@ There’s also a strict set of rules around when and how you can and cannot use 
 
 - Just like it’s a SyntaxError to use yield outside of a def function, it is a SyntaxError to use await outside of an async def coroutine. You can only use await in the body of coroutines.
 
-* Here are some examples meant to summarize the above rules:
+* Here are some examples meant to summarize the **above** rules:
 ```
 async def f(x):
     y = await z(x)  # OK - `await` and `return` allowed in coroutines
