@@ -22,6 +22,15 @@ class TestAccessNestedMap(unittest.TestCase):
         """Parameterize a Unit test"""
         self.assertEqual(access_nested_map(nested_map, keys), exp)
 
+    @parameterized.expand([
+        ({}, ['a'], KeyError),
+        ({'a': 1}, ['a', 'b'], KeyError)
+    ])
+    def test_access_nested_map_exception(self, n: Mapping, kys: Sequence, exp):
+        """Parameterize a unit test"""
+        with self.assertRaises(exp):
+            access_nested_map(n, kys)
+
 
 if __name__ == '__main__':
     unittest.main()
