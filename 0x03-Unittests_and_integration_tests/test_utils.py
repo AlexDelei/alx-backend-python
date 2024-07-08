@@ -8,6 +8,7 @@ from parameterized import parameterized
 from typing import Mapping, Sequence
 access_nested_map = __import__('utils').access_nested_map
 get_json = __import__('utils').get_json
+memoize = __import__('utils').memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -53,6 +54,38 @@ class TestGetJson(unittest.TestCase):
         mock_get.return_value = mock_response
         response = get_json(url)
         self.assertEqual(response, {'payload': results['payload']})
+
+
+class TestMemoize(unittest.TestCase):
+    """
+    Memoization, parameterize and patch
+    """
+
+    def test_memoize(self):
+        """Memoization and patch"""
+        class TestClass:
+            """Memoize implementation"""
+            def a_method(self):
+                return 42
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+
+        test_instance = TestClass()
+
+        # Patching the a_method to mock it's behavior
+        with patch.object(TestClass, 'a_method', return_value=42) as mock_mtd:
+            # Calling the memoized a_property twice
+            firstCall = test_instance.a_property
+            secondCall = test_instance.a_property
+
+            # Check the return value if  it's correct
+            self.assertEqual(firstCall, 42)
+            self.assertEqual(secondCall, 42)
+
+            # Ensuring the a_method was called only once
+            mock_mtd.assert_called_once()
 
 
 if __name__ == '__main__':
