@@ -9,6 +9,7 @@ from typing import Mapping, Sequence
 access_nested_map = __import__('utils').access_nested_map
 get_json = __import__('utils').get_json
 memoize = __import__('utils').memoize
+GithubOrgClient = __import__('client').GithubOrgClient
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -86,6 +87,29 @@ class TestMemoize(unittest.TestCase):
 
             # Ensuring the a_method was called only once
             mock_mtd.assert_called_once()
+
+
+class TestGithubOrgClient(unittest.TestCase):
+    """Parameterize and patch as decorators
+    """
+
+    @parameterized.expand([
+        ("google", {'key': 'val'}),
+        ('abc', {'key', 'val'})
+    ])
+    @patch('client.get_json', return_value={})
+    def test_org(self, org_name, expected, mock_get_json):
+        """Tests that GithubOrgClient returns the correct values
+        """
+        client = GithubOrgClient(org_name)
+
+        # configuring the return value
+        mock_get_json.return_value = expected
+
+        result = client.org
+
+        # comparing the results
+        self.assertEqual(result, expected)
 
 
 if __name__ == '__main__':
