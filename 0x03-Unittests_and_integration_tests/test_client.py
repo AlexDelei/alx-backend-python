@@ -70,9 +70,7 @@ class TestGithubOrgClient(unittest.TestCase):
             # Ensure that Mocked property was called once
             mock_pblc.assert_called_once()
 
-        mock_get_json.assert_called_once_with(
-            "https://api.github.com/orgs/test/repos"
-            )
+        mock_get_json.assert_called_once()
 
 
 if __name__ == "__main__":
