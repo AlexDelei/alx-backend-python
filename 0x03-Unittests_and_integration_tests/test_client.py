@@ -142,7 +142,3 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
             client.public_repos(license="apache-2.0"),
             self.apache2_repos
             )
-
-
-if __name__ == "__main__":
-    unittest.main()
