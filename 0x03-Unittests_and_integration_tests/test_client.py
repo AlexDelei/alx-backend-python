@@ -42,3 +42,34 @@ class TestGithubOrgClient(unittest.TestCase):
             client._public_repos_url,
             "https://api.github.com/orgs/testorg/repos"
             )
+
+    @patch('client.get_json')
+    def test_public_repos(self, mock_get_json):
+        """More Patching
+        """
+        # defining mocked payload
+        mock_repos_pyld = [
+            {'name': 'https://api.github.com/orgs/google/repos'},
+            {'name': 'https://api.github.com/orgs/apple/repos'}
+            ]
+
+        # settting the return value for get_json method
+        mock_get_json.return_value = mock_repos_pyld
+
+        with patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock) as mock_pblc:
+            # Defining the mocked _public_repos_url return value
+            mock_pblc.return_value = "https://api.github.com/orgs/testorg/repos"
+            # Instatiate the client
+            client = GithubOrgClient("testorg")
+            # Call the method to test
+            repo = client.public_repos()
+            # Ensuring the list of repos is as expected
+            for mr in mock_get_json:
+                self.assertEqual(repo, mr['name'])
+            # Ensure that Mocked property was called once
+            mock_pblc.assert_called_once()
+
+        mock_get_json.assert_called_once_with("https://api.github.com/orgs/testorg/repos")
+
+if __name__ == "__main__":
+    unittest.main()
