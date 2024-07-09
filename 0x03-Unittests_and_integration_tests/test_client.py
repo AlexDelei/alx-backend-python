@@ -5,7 +5,7 @@ Unittests for Client
 import unittest
 from unittest.mock import PropertyMock, patch, MagicMock, Mock
 from parameterized import parameterized
-GithubOrgClient = __import__('client').GithubOrgClient
+from client import GithubOrgClient
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -22,8 +22,7 @@ class TestGithubOrgClient(unittest.TestCase):
         """
         client = GithubOrgClient(org_)
         self.assertEqual(client.org, {'payload': True})
-        endpoint = f'https://api.github.com/orgs/{org_}'
-        mock_get.assert_called_once_with(endpoint)
+        mock_get.assert_called_once_with(f'https://api.github.com/orgs/{org_}')
 
     @patch('client.GithubOrgClient.org', new_callable=PropertyMock)
     def test_public_repos_url(self, mock_org):
