@@ -42,7 +42,3 @@ class TestGithubOrgClient(unittest.TestCase):
             client._public_repos_url,
             "https://api.github.com/orgs/testorg/repos"
             )
-
-
-if __name__ == "__main__":
-    unittest.main()
