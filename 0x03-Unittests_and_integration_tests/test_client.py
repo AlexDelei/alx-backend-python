@@ -43,7 +43,7 @@ class TestGithubOrgClient(unittest.TestCase):
             "https://api.github.com/orgs/testorg/repos"
             )
 
-    @patch('client.get_json', return_value= [
+    @patch('client.get_json', return_value=[
             {'name': 'https://api.github.com/orgs/google/repos'},
             {'name': 'https://api.github.com/orgs/apple/repos'}
             ])
