@@ -5,6 +5,7 @@ Unittests for Client
 import unittest
 from unittest.mock import PropertyMock, patch, MagicMock, Mock
 from parameterized import parameterized
+from typing import Dict
 GithubOrgClient = __import__('client').GithubOrgClient
 
 
@@ -64,6 +65,15 @@ class TestGithubOrgClient(unittest.TestCase):
             # Ensure that Mocked property was called once
             mock_pblc.assert_called_once()
             mock_get_json.assert_called_once()
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(self, tst_dict: Dict, lcns: str, expec: bool) -> None:
+        """Parameterize to test for a bool return value
+        """
+        self.assertEqual(GithubOrgClient.has_license(tst_dict, lcns), expec)
 
 
 if __name__ == "__main__":
