@@ -72,7 +72,7 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     def test_has_license(self, tst_dict: Dict, lcns: str, expec: bool) -> None:
         """Parameterize to test for a bool return value"""
-        self.assertEqual(GithubOrgClient.has_license(tst_dict, lcns), expec)
+        self.assertEqual(GithubOrgClient('google').has_license(tst_dict, lcns), expec)
 
 
 if __name__ == "__main__":
