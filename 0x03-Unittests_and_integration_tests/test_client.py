@@ -5,7 +5,7 @@ Unittests for Client
 import unittest
 from unittest.mock import PropertyMock, patch, MagicMock, Mock
 from parameterized import parameterized
-from client import GithubOrgClient
+GithubOrgClient = __import__('client').GithubOrgClient
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -43,19 +43,13 @@ class TestGithubOrgClient(unittest.TestCase):
             "https://api.github.com/orgs/testorg/repos"
             )
 
-    @patch('client.get_json')
+    @patch('client.get_json', return_value= [
+            {'name': 'https://api.github.com/orgs/google/repos'},
+            {'name': 'https://api.github.com/orgs/apple/repos'}
+            ])
     def test_public_repos(self, mock_get_json) -> None:
         """More Patching
         """
-        # defining mocked payload
-        mock_repos_pyld = [
-            {'name': 'https://api.github.com/orgs/google/repos'},
-            {'name': 'https://api.github.com/orgs/apple/repos'}
-            ]
-
-        # settting the return value for get_json method
-        mock_get_json.return_value = mock_repos_pyld
-
         target = 'client.GithubOrgClient._public_repos_url'
         with patch(target, new_callable=PropertyMock) as mock_pblc:
             # Defining the mocked _public_repos_url return value
@@ -69,8 +63,7 @@ class TestGithubOrgClient(unittest.TestCase):
                 self.assertEqual(repo, mr['name'])
             # Ensure that Mocked property was called once
             mock_pblc.assert_called_once()
-
-        mock_get_json.assert_called_once()
+            mock_get_json.assert_called_once()
 
 
 if __name__ == "__main__":
