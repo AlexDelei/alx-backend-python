@@ -71,8 +71,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ({"license": {"key": "other_license"}}, "my_license", False)
     ])
     def test_has_license(self, tst_dict: Dict, lcns: str, expec: bool) -> None:
-        """Parameterize to test for a bool return value
-        """
+        """Parameterize to test for a bool return value"""
         self.assertEqual(GithubOrgClient.has_license(tst_dict, lcns), expec)
 
 
