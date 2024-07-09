@@ -3,10 +3,10 @@
 Unittests for Client
 """
 import unittest
-import fixtures
 from unittest.mock import PropertyMock, patch, MagicMock, Mock
 from parameterized import parameterized, parameterized_class
 from typing import Dict
+from fixtures import TEST_PAYLOAD
 GithubOrgClient = __import__('client').GithubOrgClient
 
 
@@ -81,7 +81,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
 @parameterized_class(
     ('org_payload', 'repos_payload', 'expected_repos', 'apache2_repos'),
-    fixtures.TEST_PAYLOAD
+    TEST_PAYLOAD
 )
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """Integration test
